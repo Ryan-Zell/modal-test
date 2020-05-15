@@ -4,8 +4,19 @@ import './prism'
 // Initial config for setting up modals
 MicroModal.init({
   openTrigger: 'data-custom-open',
-  disableScroll: false,
-  awaitCloseAnimation: true
+  disableScroll: true,
+  onShow: function () { 
+    var el = document.getElementById('modal-1'),
+    elClone = el.cloneNode(true);
+    el.parentNode.replaceChild(elClone, el);
+    const body = document.querySelector('body');
+    Object.assign(body.style, { overflow: 'hidden', position: 'fixed', width: '100%' });
+    document.addEventListener('keydown', (event) => {
+      if (event.keyCode === 27) {
+        Object.assign(body.style, { overflow: 'hidden', position: 'fixed', width: '100%' });
+      }
+    })
+  },
 })
 
 // Programmatically show modal
